@@ -12,6 +12,7 @@ On Linux/Mac:
 
 ```
 ./gradlew clean build
+```
 
 ## Running
 
