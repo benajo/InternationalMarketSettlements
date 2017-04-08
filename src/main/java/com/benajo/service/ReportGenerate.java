@@ -1,6 +1,5 @@
 package com.benajo.service;
 
-import com.benajo.helper.ReportHelper;
 import com.benajo.model.Entity;
 import com.benajo.model.Instruction;
 
@@ -14,7 +13,6 @@ public class ReportGenerate {
 
   private final List<Instruction> instructions;
 
-  private ReportHelper helper = new ReportHelper();
   private Map<LocalDate, Double> incomingEachDayInUSD = new HashMap<>();
   private Map<LocalDate, Double> outgoingEachDayInUSD = new HashMap<>();
   private TreeSet<Entity> rankingIncomingEntities = new TreeSet<>();
@@ -35,8 +33,8 @@ public class ReportGenerate {
 
     instructions.forEach(i -> {
 
-      double amountOfTrade = helper.calcAmountOfTrade(i.getPricePerUnit(), i.getUnits(), i.getAgreedFx());
-      LocalDate settlementDate = helper.determineSettlementDate(i.getSettlementDate(), i.getCurrency());
+      double amountOfTrade = i.calcAmountOfTrade();
+      LocalDate settlementDate = i.determineSettlementDate();
 
 
       if (i.isBuyInstruction()) {
