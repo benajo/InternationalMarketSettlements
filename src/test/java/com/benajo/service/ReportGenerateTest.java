@@ -10,10 +10,10 @@ import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 
-public class GenerateReportTest {
+public class ReportGenerateTest {
 
   private List<Instruction> instructions = new ArrayList<>();
-  private GenerateReport rep;
+  private ReportGenerate rep;
 
   /**
    * Creates some sample data
@@ -34,7 +34,7 @@ public class GenerateReportTest {
     instructions.add(new Instruction("dog", "S", 0.14, "SAR", LocalDate.of(2016, 1, 5), LocalDate.of(2016, 1, 9), 323, 89));
     instructions.add(new Instruction("pug", "S", 0.44, "SAR", LocalDate.of(2016, 1, 5), LocalDate.of(2016, 1, 10), 119, 199));
 
-    rep = new GenerateReport(instructions);
+    rep = new ReportGenerate(instructions);
   }
 
   /**

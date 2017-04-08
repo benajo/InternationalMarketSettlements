@@ -10,7 +10,7 @@ import java.util.*;
 /**
  * This class takes in a list of instructions and iterates over them to generate the report.
  */
-public class GenerateReport {
+public class ReportGenerate {
 
   private final String BUY = "B";
   private final String SELL = "S";
@@ -27,7 +27,7 @@ public class GenerateReport {
    *
    * @param instructions
    */
-  public GenerateReport(List<Instruction> instructions) {
+  public ReportGenerate(List<Instruction> instructions) {
 
     instructions.forEach(i -> {
 
