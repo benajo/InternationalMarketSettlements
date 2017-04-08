@@ -19,8 +19,8 @@ public class ReportGenerate {
   private ReportHelper helper = new ReportHelper();
   private Map<LocalDate, Double> incomingEachDayInUSD = new HashMap<>();
   private Map<LocalDate, Double> outgoingEachDayInUSD = new HashMap<>();
-  private LinkedList<Entity> rankingIncomingEntities = new LinkedList<>();
-  private LinkedList<Entity> rankingOutgoingEntities = new LinkedList<>();
+  private TreeSet<Entity> rankingIncomingEntities = new TreeSet<>();
+  private TreeSet<Entity> rankingOutgoingEntities = new TreeSet<>();
 
   /**
    * Iterates over the instructions, calculates the trade amount, modifies settlement date (if required)
@@ -49,9 +49,6 @@ public class ReportGenerate {
         rankingIncomingEntities.add(new Entity(i.getEntity(), amountOfTrade));
       }
     });
-
-    Collections.sort(rankingOutgoingEntities);
-    Collections.sort(rankingIncomingEntities);
   }
 
   /**
@@ -105,11 +102,11 @@ public class ReportGenerate {
     return outgoingEachDayInUSD;
   }
 
-  public LinkedList<Entity> getRankingIncomingEntities() {
+  public TreeSet<Entity> getRankingIncomingEntities() {
     return rankingIncomingEntities;
   }
 
-  public LinkedList<Entity> getRankingOutgoingEntities() {
+  public TreeSet<Entity> getRankingOutgoingEntities() {
     return rankingOutgoingEntities;
   }
 }

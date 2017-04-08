@@ -82,7 +82,7 @@ public class ReportGenerateTest {
   @Test
   public void checkOutgoingEntityRankingsAreCorrect() throws Exception {
 
-    LinkedList<Entity> expected = new LinkedList<>();
+    TreeSet<Entity> expected = new TreeSet<>();
 
     expected.add(new Entity("foo", 10025.0));
     expected.add(new Entity("baz", 7980.0));
@@ -101,7 +101,7 @@ public class ReportGenerateTest {
   @Test
   public void checkIncomingEntityRankingsAreCorrect() throws Exception {
 
-    LinkedList<Entity> expected = new LinkedList<>();
+    TreeSet<Entity> expected = new TreeSet<>();
 
     expected.add(new Entity("bar", 14899.5));
     expected.add(new Entity("pug", 10419.64));
