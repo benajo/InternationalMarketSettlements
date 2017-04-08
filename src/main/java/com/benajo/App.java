@@ -1,7 +1,7 @@
 package com.benajo;
 
 import com.benajo.model.Instruction;
-import com.benajo.service.GenerateReport;
+import com.benajo.service.ReportGenerate;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -30,6 +30,8 @@ public class App {
     System.out.println("List of instructions:");
     instructions.forEach(i -> System.out.println(i.toString()));
 
-    new GenerateReport(instructions);
+    ReportGenerate report = new ReportGenerate(instructions);
+    report.run();
+    report.print();
   }
 }

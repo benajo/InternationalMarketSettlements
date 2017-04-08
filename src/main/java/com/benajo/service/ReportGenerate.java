@@ -14,6 +14,7 @@ public class ReportGenerate {
 
   private final String BUY = "B";
   private final String SELL = "S";
+  private final List<Instruction> instructions;
 
   private ReportHelper helper = new ReportHelper();
   private Map<LocalDate, Double> incomingEachDayInUSD = new HashMap<>();
@@ -28,6 +29,11 @@ public class ReportGenerate {
    * @param instructions
    */
   public ReportGenerate(List<Instruction> instructions) {
+
+    this.instructions = instructions;
+  }
+
+  public void run() {
 
     instructions.forEach(i -> {
 
@@ -44,13 +50,14 @@ public class ReportGenerate {
       }
     });
 
-    printReport();
+    Collections.sort(rankingOutgoingEntities);
+    Collections.sort(rankingIncomingEntities);
   }
 
   /**
    * Prints the report to System.out.
    */
-  private void printReport() {
+  public void print() {
 
     // outgoing each day
     System.out.println();
@@ -63,13 +70,11 @@ public class ReportGenerate {
     incomingEachDayInUSD.forEach((k, v) -> System.out.println(k + ": " + v));
 
     // ranking of outgoing entities
-    Collections.sort(rankingOutgoingEntities);
     System.out.println();
     System.out.println("Ranking of buy entities:");
     rankingOutgoingEntities.forEach(e -> System.out.println(e.getEntity() + " - " + e.getPrice()));
 
     // ranking of incoming entities
-    Collections.sort(rankingIncomingEntities);
     System.out.println();
     System.out.println("Ranking of sell entities:");
     rankingIncomingEntities.forEach(e -> System.out.println(e.getEntity() + " - " + e.getPrice()));

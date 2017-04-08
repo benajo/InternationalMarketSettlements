@@ -13,7 +13,7 @@ import static org.junit.Assert.assertEquals;
 public class ReportGenerateTest {
 
   private List<Instruction> instructions = new ArrayList<>();
-  private ReportGenerate rep;
+  private ReportGenerate report;
 
   /**
    * Creates some sample data
@@ -34,7 +34,8 @@ public class ReportGenerateTest {
     instructions.add(new Instruction("dog", "S", 0.14, "SAR", LocalDate.of(2016, 1, 5), LocalDate.of(2016, 1, 9), 323, 89));
     instructions.add(new Instruction("pug", "S", 0.44, "SAR", LocalDate.of(2016, 1, 5), LocalDate.of(2016, 1, 10), 119, 199));
 
-    rep = new ReportGenerate(instructions);
+    report = new ReportGenerate(instructions);
+    report.run();
   }
 
   /**
@@ -53,7 +54,7 @@ public class ReportGenerateTest {
     expected.put(LocalDate.of(2016, 1, 4), 10025.0);
     expected.put(LocalDate.of(2016, 1, 18), 7200.0);
 
-    assertEquals(expected, rep.getOutgoingEachDayInUSD());
+    assertEquals(expected, report.getOutgoingEachDayInUSD());
   }
 
   /**
@@ -70,7 +71,7 @@ public class ReportGenerateTest {
     expected.put(LocalDate.of(2016, 1, 7), 14899.5);
     expected.put(LocalDate.of(2016, 1, 5), 3076.92);
 
-    assertEquals(expected, rep.getIncomingEachDayInUSD());
+    assertEquals(expected, report.getIncomingEachDayInUSD());
   }
 
   /**
@@ -89,7 +90,7 @@ public class ReportGenerateTest {
     expected.add(new Entity("pat", 7200.0));
     expected.add(new Entity("mat", 5610.0));
 
-    assertEquals(expected, rep.getRankingOutgoingEntities());
+    assertEquals(expected, report.getRankingOutgoingEntities());
   }
 
   /**
@@ -107,6 +108,6 @@ public class ReportGenerateTest {
     expected.add(new Entity("dog", 4024.5800000000004));
     expected.add(new Entity("cat", 3076.92));
 
-    assertEquals(expected, rep.getRankingIncomingEntities());
+    assertEquals(expected, report.getRankingIncomingEntities());
   }
 }
