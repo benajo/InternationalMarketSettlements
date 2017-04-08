@@ -7,8 +7,12 @@ import java.time.LocalDate;
  */
 public class Instruction {
 
+  public enum typeOfInstructions {
+    BUY, SELL
+  }
+
   private String entity;
-  private String buyOrSell;
+  private typeOfInstructions typeOfInstruction;
   private double agreedFx;
   private String currency;
   private LocalDate instructionDate;
@@ -16,10 +20,10 @@ public class Instruction {
   private int units;
   private double pricePerUnit;
 
-  public Instruction(String entity, String buyOrSell, double agreedFx, String currency, LocalDate instructionDate,
+  public Instruction(String entity, typeOfInstructions typeOfInstruction, double agreedFx, String currency, LocalDate instructionDate,
                      LocalDate settlementDate, int units, double pricePerUnit) {
     this.entity = entity;
-    this.buyOrSell = buyOrSell;
+    this.typeOfInstruction = typeOfInstruction;
     this.agreedFx = agreedFx;
     this.currency = currency;
     this.instructionDate = instructionDate;
@@ -32,8 +36,8 @@ public class Instruction {
     return entity;
   }
 
-  public String getBuyOrSell() {
-    return buyOrSell;
+  public typeOfInstructions getTypeOfInstruction() {
+    return typeOfInstruction;
   }
 
   public double getAgreedFx() {
@@ -60,11 +64,19 @@ public class Instruction {
     return pricePerUnit;
   }
 
+  public boolean isBuyInstruction() {
+    return typeOfInstruction.equals(typeOfInstructions.BUY);
+  }
+
+  public boolean isSellInstruction() {
+    return typeOfInstruction.equals(typeOfInstructions.SELL);
+  }
+
   @Override
   public String toString() {
     return "Instruction{" +
             "entity='" + entity + '\'' +
-            ", buyOrSell='" + buyOrSell + '\'' +
+            ", typeOfInstruction='" + typeOfInstruction + '\'' +
             ", agreedFx=" + agreedFx +
             ", currency='" + currency + '\'' +
             ", instructionDate=" + instructionDate +

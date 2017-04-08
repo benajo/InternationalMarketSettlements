@@ -12,8 +12,6 @@ import java.util.*;
  */
 public class ReportGenerate {
 
-  private final String BUY = "B";
-  private final String SELL = "S";
   private final List<Instruction> instructions;
 
   private ReportHelper helper = new ReportHelper();
@@ -41,10 +39,10 @@ public class ReportGenerate {
       LocalDate settlementDate = helper.determineSettlementDate(i.getSettlementDate(), i.getCurrency());
 
 
-      if (i.getBuyOrSell().equals(BUY)) {
+      if (i.isBuyInstruction()) {
         recalculateDailySettlementTotals(outgoingEachDayInUSD, amountOfTrade, settlementDate);
         rankingOutgoingEntities.add(new Entity(i.getEntity(), amountOfTrade));
-      } else if (i.getBuyOrSell().equals(SELL)) {
+      } else if (i.isSellInstruction()) {
         recalculateDailySettlementTotals(incomingEachDayInUSD, amountOfTrade, settlementDate);
         rankingIncomingEntities.add(new Entity(i.getEntity(), amountOfTrade));
       }
