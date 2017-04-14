@@ -1,6 +1,5 @@
-package com.benajo.helper;
+package com.benajo.model;
 
-import com.benajo.model.Instruction;
 import org.junit.Test;
 
 import java.time.LocalDate;
