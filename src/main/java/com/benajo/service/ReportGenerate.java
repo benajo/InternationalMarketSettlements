@@ -1,6 +1,5 @@
 package com.benajo.service;
 
-import com.benajo.model.Entity;
 import com.benajo.model.Instruction;
 
 import java.time.LocalDate;
@@ -15,8 +14,8 @@ public class ReportGenerate {
 
   private Map<LocalDate, Double> incomingEachDayInUSD = new HashMap<>();
   private Map<LocalDate, Double> outgoingEachDayInUSD = new HashMap<>();
-  private TreeSet<Entity> rankingIncomingEntities = new TreeSet<>();
-  private TreeSet<Entity> rankingOutgoingEntities = new TreeSet<>();
+  private TreeSet<Instruction> rankingIncomingEntities = new TreeSet<>();
+  private TreeSet<Instruction> rankingOutgoingEntities = new TreeSet<>();
 
   /**
    * Iterates over the instructions, calculates the trade amount, modifies settlement date (if required)
@@ -39,10 +38,10 @@ public class ReportGenerate {
 
       if (i.isBuyInstruction()) {
         recalculateDailySettlementTotals(outgoingEachDayInUSD, amountOfTrade, settlementDate);
-        rankingOutgoingEntities.add(new Entity(i.getEntity(), amountOfTrade));
+        rankingOutgoingEntities.add(i);
       } else if (i.isSellInstruction()) {
         recalculateDailySettlementTotals(incomingEachDayInUSD, amountOfTrade, settlementDate);
-        rankingIncomingEntities.add(new Entity(i.getEntity(), amountOfTrade));
+        rankingIncomingEntities.add(i);
       }
     });
   }
@@ -65,12 +64,12 @@ public class ReportGenerate {
     // ranking of outgoing entities
     System.out.println();
     System.out.println("Ranking of buy entities:");
-    rankingOutgoingEntities.forEach(e -> System.out.println(e.getEntity() + " - " + e.getPrice()));
+    rankingOutgoingEntities.forEach(i -> System.out.println(i.getEntity() + " - " + i.calcAmountOfTrade()));
 
     // ranking of incoming entities
     System.out.println();
     System.out.println("Ranking of sell entities:");
-    rankingIncomingEntities.forEach(e -> System.out.println(e.getEntity() + " - " + e.getPrice()));
+    rankingIncomingEntities.forEach(i -> System.out.println(i.getEntity() + " - " + i.calcAmountOfTrade()));
   }
 
   /**
@@ -98,11 +97,11 @@ public class ReportGenerate {
     return outgoingEachDayInUSD;
   }
 
-  public TreeSet<Entity> getRankingIncomingEntities() {
+  public TreeSet<Instruction> getRankingIncomingEntities() {
     return rankingIncomingEntities;
   }
 
-  public TreeSet<Entity> getRankingOutgoingEntities() {
+  public TreeSet<Instruction> getRankingOutgoingEntities() {
     return rankingOutgoingEntities;
   }
 }

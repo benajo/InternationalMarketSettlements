@@ -1,6 +1,5 @@
 package com.benajo.service;
 
-import com.benajo.model.Entity;
 import com.benajo.model.Instruction;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,6 +13,8 @@ import static org.junit.Assert.assertEquals;
 
 public class ReportGenerateTest {
 
+  private List<Instruction> instructionsBuy = new ArrayList<>();
+  private List<Instruction> instructionsSell = new ArrayList<>();
   private List<Instruction> instructions = new ArrayList<>();
   private ReportGenerate report;
 
@@ -25,16 +26,19 @@ public class ReportGenerateTest {
   @Before
   public void setUp() throws Exception {
 
-    instructions.add(new Instruction("foo", BUY, 0.5, "SGP", LocalDate.of(2016, 1, 1), LocalDate.of(2016, 1, 2), 200, 100.25));
-    instructions.add(new Instruction("baz", BUY, 0.4, "GBP", LocalDate.of(2016, 1, 1), LocalDate.of(2016, 1, 7), 133, 150));
-    instructions.add(new Instruction("bat", BUY, 0.3, "USD", LocalDate.of(2016, 1, 1), LocalDate.of(2016, 1, 9), 155, 160));
-    instructions.add(new Instruction("mat", BUY, 0.25, "EUR", LocalDate.of(2016, 1, 1), LocalDate.of(2016, 1, 14), 132, 170));
-    instructions.add(new Instruction("pat", BUY, 0.4, "GBP", LocalDate.of(2016, 1, 1), LocalDate.of(2016, 1, 17), 100, 180));
+    instructionsBuy.add(new Instruction("foo", BUY, 0.5, "SGP", LocalDate.of(2016, 1, 1), LocalDate.of(2016, 1, 2), 200, 100.25));
+    instructionsBuy.add(new Instruction("baz", BUY, 0.4, "GBP", LocalDate.of(2016, 1, 1), LocalDate.of(2016, 1, 7), 133, 150));
+    instructionsBuy.add(new Instruction("bat", BUY, 0.3, "USD", LocalDate.of(2016, 1, 1), LocalDate.of(2016, 1, 9), 155, 160));
+    instructionsBuy.add(new Instruction("mat", BUY, 0.25, "EUR", LocalDate.of(2016, 1, 1), LocalDate.of(2016, 1, 14), 132, 170));
+    instructionsBuy.add(new Instruction("pat", BUY, 0.4, "GBP", LocalDate.of(2016, 1, 1), LocalDate.of(2016, 1, 17), 100, 180));
 
-    instructions.add(new Instruction("bar", SELL, 0.22, "AED", LocalDate.of(2016, 1, 5), LocalDate.of(2016, 1, 7), 450, 150.5));
-    instructions.add(new Instruction("cat", SELL, 0.21, "AED", LocalDate.of(2016, 1, 5), LocalDate.of(2016, 1, 5), 222, 66));
-    instructions.add(new Instruction("dog", SELL, 0.14, "SAR", LocalDate.of(2016, 1, 5), LocalDate.of(2016, 1, 9), 323, 89));
-    instructions.add(new Instruction("pug", SELL, 0.44, "SAR", LocalDate.of(2016, 1, 5), LocalDate.of(2016, 1, 10), 119, 199));
+    instructionsSell.add(new Instruction("bar", SELL, 0.22, "AED", LocalDate.of(2016, 1, 5), LocalDate.of(2016, 1, 7), 450, 150.5));
+    instructionsSell.add(new Instruction("cat", SELL, 0.21, "AED", LocalDate.of(2016, 1, 5), LocalDate.of(2016, 1, 5), 222, 66));
+    instructionsSell.add(new Instruction("dog", SELL, 0.14, "SAR", LocalDate.of(2016, 1, 5), LocalDate.of(2016, 1, 9), 323, 89));
+    instructionsSell.add(new Instruction("pug", SELL, 0.44, "SAR", LocalDate.of(2016, 1, 5), LocalDate.of(2016, 1, 10), 119, 199));
+
+    instructions.addAll(instructionsBuy);
+    instructions.addAll(instructionsSell);
 
     report = new ReportGenerate(instructions);
     report.run();
@@ -84,14 +88,7 @@ public class ReportGenerateTest {
   @Test
   public void checkOutgoingEntityRankingsAreCorrect() throws Exception {
 
-    TreeSet<Entity> expected = new TreeSet<>();
-
-    expected.add(new Entity("foo", 10025.0));
-    expected.add(new Entity("baz", 7980.0));
-    expected.add(new Entity("bat", 7440.0));
-    expected.add(new Entity("pat", 7200.0));
-    expected.add(new Entity("mat", 5610.0));
-
+    TreeSet<Instruction> expected = new TreeSet<>(instructionsBuy);
     assertEquals(expected, report.getRankingOutgoingEntities());
   }
 
@@ -103,13 +100,7 @@ public class ReportGenerateTest {
   @Test
   public void checkIncomingEntityRankingsAreCorrect() throws Exception {
 
-    TreeSet<Entity> expected = new TreeSet<>();
-
-    expected.add(new Entity("bar", 14899.5));
-    expected.add(new Entity("pug", 10419.64));
-    expected.add(new Entity("dog", 4024.5800000000004));
-    expected.add(new Entity("cat", 3076.92));
-
+    TreeSet<Instruction> expected = new TreeSet<>(instructionsSell);
     assertEquals(expected, report.getRankingIncomingEntities());
   }
 }

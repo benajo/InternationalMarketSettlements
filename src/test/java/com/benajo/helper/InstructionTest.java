@@ -3,7 +3,6 @@ package com.benajo.helper;
 import com.benajo.model.Instruction;
 import org.junit.Test;
 
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 import static java.time.DayOfWeek.*;
