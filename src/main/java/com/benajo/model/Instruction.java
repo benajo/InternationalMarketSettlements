@@ -3,6 +3,8 @@ package com.benajo.model;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 
+import static java.time.DayOfWeek.*;
+
 /**
  * Model class for the instructions used in the international market.
  */
@@ -117,26 +119,20 @@ public class Instruction implements Comparable<Instruction> {
   public LocalDate determineSettlementDate() {
 
     DayOfWeek dayOfWeek = settlementDate.getDayOfWeek();
+    boolean normalWorkingWeek = !(currency.equals("AED") || currency.equals("SAR"));
 
-    if (currency.equals("AED") || currency.equals("SAR")) {
-      switch (dayOfWeek) {
-        case FRIDAY:
-          return settlementDate.plusDays(2);
-        case SATURDAY:
-          return settlementDate.plusDays(1);
-        default:
-          return settlementDate;
-      }
-    }
-
-    switch (dayOfWeek) {
-      case SATURDAY:
+    if (dayOfWeek.equals(FRIDAY) && !normalWorkingWeek) {
+      return settlementDate.plusDays(2);
+    } else if (dayOfWeek.equals(SATURDAY)) {
+      if (normalWorkingWeek)
         return settlementDate.plusDays(2);
-      case SUNDAY:
+      else
         return settlementDate.plusDays(1);
-      default:
-        return settlementDate;
+    } else if (dayOfWeek.equals(SUNDAY) && normalWorkingWeek) {
+      return settlementDate.plusDays(1);
     }
+
+    return settlementDate;
   }
 
   /**
