@@ -3,6 +3,8 @@ package com.benajo.model;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 
+import static com.benajo.model.Instruction.typeOfInstructions.BUY;
+import static com.benajo.model.Instruction.typeOfInstructions.SELL;
 import static java.time.DayOfWeek.*;
 
 /**
@@ -103,11 +105,11 @@ public class Instruction implements Comparable<Instruction> {
   }
 
   public boolean isBuyInstruction() {
-    return typeOfInstruction.equals(typeOfInstructions.BUY);
+    return BUY.equals(typeOfInstruction);
   }
 
   public boolean isSellInstruction() {
-    return typeOfInstruction.equals(typeOfInstructions.SELL);
+    return SELL.equals(typeOfInstruction);
   }
 
   /**
@@ -118,17 +120,21 @@ public class Instruction implements Comparable<Instruction> {
    */
   public LocalDate determineSettlementDate() {
 
-    DayOfWeek dayOfWeek = settlementDate.getDayOfWeek();
-    boolean normalWorkingWeek = !(currency.equals("AED") || currency.equals("SAR"));
+    if (settlementDate == null) {
+      return null;
+    }
 
-    if (dayOfWeek.equals(FRIDAY) && !normalWorkingWeek) {
+    DayOfWeek dayOfWeek = settlementDate.getDayOfWeek();
+    boolean normalWorkingWeek = !("AED".equals(currency) || "SAR".equals(currency));
+
+    if (FRIDAY.equals(dayOfWeek) && !normalWorkingWeek) {
       return settlementDate.plusDays(2);
-    } else if (dayOfWeek.equals(SATURDAY)) {
+    } else if (SATURDAY.equals(dayOfWeek)) {
       if (normalWorkingWeek)
         return settlementDate.plusDays(2);
       else
         return settlementDate.plusDays(1);
-    } else if (dayOfWeek.equals(SUNDAY) && normalWorkingWeek) {
+    } else if (SUNDAY.equals(dayOfWeek) && normalWorkingWeek) {
       return settlementDate.plusDays(1);
     }
 
@@ -146,6 +152,10 @@ public class Instruction implements Comparable<Instruction> {
 
   @Override
   public int compareTo(Instruction o) {
+
+    if (o == null) {
+      return 0;
+    }
 
     if (calcAmountOfTrade() > o.calcAmountOfTrade())
       return -1;
@@ -170,8 +180,14 @@ public class Instruction implements Comparable<Instruction> {
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+
+    if (this == o) {
+      return true;
+    }
+
+    if (o == null || getClass().equals(o.getClass())) {
+      return false;
+    }
 
     Instruction that = (Instruction) o;
 

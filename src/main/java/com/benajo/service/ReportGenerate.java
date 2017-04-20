@@ -3,7 +3,10 @@ package com.benajo.service;
 import com.benajo.model.Instruction;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeSet;
 
 /**
  * This class takes in a list of instructions and iterates over them to generate the report.
@@ -30,18 +33,20 @@ public class ReportGenerate {
 
   public void run() {
 
-    instructions.forEach(i -> {
+    instructions.forEach(instruction -> {
 
-      double amountOfTrade = i.calcAmountOfTrade();
-      LocalDate settlementDate = i.determineSettlementDate();
+      double amountOfTrade = instruction.calcAmountOfTrade();
+      LocalDate settlementDate = instruction.determineSettlementDate();
 
+      if (instruction.isBuyInstruction()) {
 
-      if (i.isBuyInstruction()) {
         recalculateDailySettlementTotals(outgoingEachDayInUSD, amountOfTrade, settlementDate);
-        rankingOutgoingEntities.add(i);
-      } else if (i.isSellInstruction()) {
+        rankingOutgoingEntities.add(instruction);
+
+      } else if (instruction.isSellInstruction()) {
+
         recalculateDailySettlementTotals(incomingEachDayInUSD, amountOfTrade, settlementDate);
-        rankingIncomingEntities.add(i);
+        rankingIncomingEntities.add(instruction);
       }
     });
   }

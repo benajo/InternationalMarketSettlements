@@ -27,15 +27,15 @@ public class ReportGenerateTest {
   public void setUp() throws Exception {
 
     instructionsBuy.add(new Instruction("foo", BUY, 0.5, "SGP", LocalDate.of(2016, 1, 1), LocalDate.of(2016, 1, 2), 200, 100.25));
-    instructionsBuy.add(new Instruction("baz", BUY, 0.4, "GBP", LocalDate.of(2016, 1, 1), LocalDate.of(2016, 1, 7), 133, 150));
-    instructionsBuy.add(new Instruction("bat", BUY, 0.3, "USD", LocalDate.of(2016, 1, 1), LocalDate.of(2016, 1, 9), 155, 160));
     instructionsBuy.add(new Instruction("mat", BUY, 0.25, "EUR", LocalDate.of(2016, 1, 1), LocalDate.of(2016, 1, 14), 132, 170));
+    instructionsBuy.add(new Instruction("baz", BUY, 0.4, "GBP", LocalDate.of(2016, 1, 1), LocalDate.of(2016, 1, 7), 133, 150));
     instructionsBuy.add(new Instruction("pat", BUY, 0.4, "GBP", LocalDate.of(2016, 1, 1), LocalDate.of(2016, 1, 17), 100, 180));
+    instructionsBuy.add(new Instruction("bat", BUY, 0.3, "USD", LocalDate.of(2016, 1, 1), LocalDate.of(2016, 1, 9), 155, 160));
 
-    instructionsSell.add(new Instruction("bar", SELL, 0.22, "AED", LocalDate.of(2016, 1, 5), LocalDate.of(2016, 1, 7), 450, 150.5));
-    instructionsSell.add(new Instruction("cat", SELL, 0.21, "AED", LocalDate.of(2016, 1, 5), LocalDate.of(2016, 1, 5), 222, 66));
     instructionsSell.add(new Instruction("dog", SELL, 0.14, "SAR", LocalDate.of(2016, 1, 5), LocalDate.of(2016, 1, 9), 323, 89));
     instructionsSell.add(new Instruction("pug", SELL, 0.44, "SAR", LocalDate.of(2016, 1, 5), LocalDate.of(2016, 1, 10), 119, 199));
+    instructionsSell.add(new Instruction("bar", SELL, 0.22, "AED", LocalDate.of(2016, 1, 5), LocalDate.of(2016, 1, 7), 450, 150.5));
+    instructionsSell.add(new Instruction("cat", SELL, 0.21, "AED", LocalDate.of(2016, 1, 5), LocalDate.of(2016, 1, 5), 222, 66));
 
     instructions.addAll(instructionsBuy);
     instructions.addAll(instructionsSell);
