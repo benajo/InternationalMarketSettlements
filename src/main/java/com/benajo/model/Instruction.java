@@ -44,52 +44,12 @@ public class Instruction implements Comparable<Instruction> {
     return entity;
   }
 
-  public typeOfInstructions getTypeOfInstruction() {
-    return typeOfInstruction;
-  }
-
-  public double getAgreedFx() {
-    return agreedFx;
-  }
-
-  public String getCurrency() {
-    return currency;
-  }
-
-  public LocalDate getInstructionDate() {
-    return instructionDate;
-  }
-
-  public LocalDate getSettlementDate() {
-    return settlementDate;
-  }
-
-  public int getUnits() {
-    return units;
-  }
-
-  public double getPricePerUnit() {
-    return pricePerUnit;
-  }
-
-  public void setEntity(String entity) {
-    this.entity = entity;
-  }
-
-  public void setTypeOfInstruction(typeOfInstructions typeOfInstruction) {
-    this.typeOfInstruction = typeOfInstruction;
-  }
-
   public void setAgreedFx(double agreedFx) {
     this.agreedFx = agreedFx;
   }
 
   public void setCurrency(String currency) {
     this.currency = currency;
-  }
-
-  public void setInstructionDate(LocalDate instructionDate) {
-    this.instructionDate = instructionDate;
   }
 
   public void setSettlementDate(LocalDate settlementDate) {
